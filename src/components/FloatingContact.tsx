@@ -59,51 +59,33 @@ export function FloatingContact() {
           <ArrowUp className="w-5 h-5" />
         </button>
       )}
-
       <div className="flex flex-col items-end gap-2">
-        <AnimatePresence>
-          {showMessage && (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 10 }}
-              transition={{ duration: 0.25 }}
-              className="rounded-full px-4 py-2 text-sm bg-white/95 shadow-lg border border-slate-200 text-slate-900"
+        {options.map((opt) => (
+          <motion.a
+            key={opt.label}
+            href={opt.href}
+            target={opt.href.startsWith("http") ? "_blank" : undefined}
+            rel="noopener noreferrer"
+            whileHover={{ x: -4 }}
+            transition={{ type: "spring", stiffness: 350, damping: 22 }}
+            className="flex items-center gap-2.5 px-4 py-2.5 rounded-full text-sm font-semibold whitespace-nowrap"
+            style={{
+              background: "var(--bg-card)",
+              border: "1px solid var(--border)",
+              boxShadow: "var(--shadow-md)",
+              color: "var(--text-primary)",
+              textDecoration: "none",
+            }}
+          >
+            <span
+              className="w-8 h-8 rounded-full flex items-center justify-center text-base flex-shrink-0"
+              style={{ background: opt.bg }}
             >
-              Liên hệ nhanh với tôi qua Zalo, điện thoại hoặc email. Tôi sẽ phản
-              hồi trong thời gian sớm nhất!
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        <div className="flex flex-col items-end gap-2">
-          {options.map((opt) => (
-            <motion.a
-              key={opt.label}
-              href={opt.href}
-              target={opt.href.startsWith("http") ? "_blank" : undefined}
-              rel="noopener noreferrer"
-              whileHover={{ x: -4 }}
-              transition={{ type: "spring", stiffness: 350, damping: 22 }}
-              className="flex items-center gap-2.5 px-4 py-2.5 rounded-full text-sm font-semibold whitespace-nowrap"
-              style={{
-                background: "var(--bg-card)",
-                border: "1px solid var(--border)",
-                boxShadow: "var(--shadow-md)",
-                color: "var(--text-primary)",
-                textDecoration: "none",
-              }}
-            >
-              <span
-                className="w-8 h-8 rounded-full flex items-center justify-center text-base flex-shrink-0"
-                style={{ background: opt.bg }}
-              >
-                {opt.icon}
-              </span>
-              {opt.label}
-            </motion.a>
-          ))}
-        </div>
+              {opt.icon}
+            </span>
+            {opt.label}
+          </motion.a>
+        ))}
       </div>
     </div>
   );
